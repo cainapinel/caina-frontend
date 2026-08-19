@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  /* Design decidido: tema escuro único, identidade "forense" com acento âmbar. */
+  --color-night: #0b0e14;
+  --color-surface: #131822;
+  --color-surface2: #1a2130;
+  --color-edge: #232c3d;
+  --color-ink: #e7e9ee;
+  --color-muted: #8a93a6;
+  --color-accent: #f59e0b;
+  --color-accent-soft: rgba(245, 158, 11, 0.12);
+  --color-ok: #10b981;
+  --color-sev-high: #ef4444;
+  --color-sev-medium: #f59e0b;
+  --color-sev-low: #9ca3af;
+  --color-sev-info: #64748b;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-night);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-base);
+}
