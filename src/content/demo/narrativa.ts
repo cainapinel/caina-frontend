@@ -119,7 +119,8 @@ export const achados = [
   {
     titulo: "Moderação julga o assunto, não a intenção",
     texto:
-      "No roteiro em várias rodadas (A6), o gateway barrou já a primeira resposta educativa sobre golpes. Para um time de treinamento, " +
-      "os tópicos precisariam de ajuste. A documentação da NeuralTrust recomenda Observe antes de Enforce por isso.",
+      "No roteiro em várias rodadas (A6), o gateway barrou no 2º turno, quando o pedido ainda era de treinamento; no piloto, barrou " +
+      "até a primeira resposta educativa. Para um time de treinamento, os tópicos precisariam de ajuste. A documentação da NeuralTrust " +
+      "recomenda Observe antes de Enforce por isso.",
   },
 ];
