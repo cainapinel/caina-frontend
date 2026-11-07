@@ -1,6 +1,35 @@
-import { achados, cliente, dores, posVenda, rollout } from "@/content/demo/narrativa";
+import { achados, cliente, dores, posVenda, resumoExecutivo, rollout } from "@/content/demo/narrativa";
 import type { Rodada } from "@/lib/demo/types";
 import { owaspCurto } from "./rotulos";
+
+export function ResumoExecutivo({ rodada }: { rodada: Rodada }) {
+  const { sem_defesa: s, com_gateway: c } = rodada.resumo.por_modo;
+  const lat = Math.round((c.latencia_chamada_llm_controles_ms.p50 ?? 0) - (s.latencia_chamada_llm_controles_ms.p50 ?? 0));
+  const blocos = [
+    { titulo: "O problema", texto: resumoExecutivo.problema },
+    { titulo: "A solução", texto: resumoExecutivo.solucao },
+    { titulo: "A implantação", texto: resumoExecutivo.implantacao },
+  ];
+  return (
+    <div className="mx-auto max-w-6xl px-4 md:px-6">
+      <div className="grid gap-3 rounded-2xl border border-edge bg-surface p-5 md:grid-cols-[1fr_1fr_1fr_15rem]">
+        {blocos.map((b) => (
+          <div key={b.titulo}>
+            <p className="font-mono text-xs text-accent">{b.titulo}</p>
+            <p className="mt-1 text-sm leading-relaxed text-ink/90">{b.texto}</p>
+          </div>
+        ))}
+        <div className="space-y-1 rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-3 font-mono text-xs">
+          <p className="font-sans text-xs text-accent">A prova (medida)</p>
+          <p><span className="text-emerald-300">{c.ataques_bem_sucedidos}/{c.ataques_total}</span> ataques passaram com NeuralTrust</p>
+          <p><span className="text-red-300">{s.ataques_bem_sucedidos}/{s.ataques_total}</span> passaram sem defesa</p>
+          <p><span className="text-emerald-300">{c.falsos_positivos}/{c.controles_total}</span> pedidos legítimos barrados</p>
+          <p><span className="text-ink">+{lat} ms</span> por chamada (p50)</p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function Cliente() {
   return (

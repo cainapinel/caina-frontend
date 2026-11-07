@@ -158,4 +158,6 @@ export interface Rodada {
   detectores: DetectorConfig[];
   travas_aplicacao: { nome: string; detalhe: string }[];
   replay: Record<string, Record<Modo, Resultado & { run_id: string }>>;
+  /** Por ataque: detectores que o barraram na rodada (observado) ou que a documentação sustenta (inferido). */
+  cobertura: Record<string, { detector: string; base: "observado" | "inferido"; vezes?: number; de?: number }[]>;
 }

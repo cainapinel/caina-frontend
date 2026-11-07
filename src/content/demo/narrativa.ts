@@ -6,6 +6,17 @@ export const aviso =
   "Demo independente, construída por Cainã Pinel como case de candidato a Solution Engineer. " +
   "Não é material oficial da NeuralTrust. Empresa, pessoas e dados são fictícios.";
 
+// "Em 30 segundos": o resumo para quem decide. Os números vêm da rodada gravada.
+export const resumoExecutivo = {
+  problema:
+    "Agentes de IA leem conteúdo de terceiros e agem com dados reais. Um e-mail bem escrito basta para tentar fazê-los vazar dados, " +
+    "fraudar em nome da marca ou agir fora do escopo.",
+  solucao:
+    "A NeuralTrust entra como gateway entre o agente, o modelo e as ferramentas: inspeciona cada pedido e cada resposta com políticas " +
+    "configuráveis e guarda as chaves fora do agente.",
+  implantacao: "Sem reescrever o agente: muda a URL base e a credencial. Começa em Observe, vira Enforce quando o cliente estiver confortável.",
+};
+
 export const cliente = {
   nome: "ExemploPay",
   descricao:

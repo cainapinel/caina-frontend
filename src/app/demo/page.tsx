@@ -6,7 +6,8 @@ import { Apresentador } from "@/components/demo/Apresentador";
 import { Arena } from "@/components/demo/Arena";
 import { Arquitetura } from "@/components/demo/Arquitetura";
 import { Desafio } from "@/components/demo/Desafio";
-import { Cliente, Numeros, Politicas, PosVenda } from "@/components/demo/Secoes";
+import { Cliente, Numeros, Politicas, PosVenda, ResumoExecutivo } from "@/components/demo/Secoes";
+import { SimuladorPoliticas } from "@/components/demo/SimuladorPoliticas";
 import { aviso } from "@/content/demo/narrativa";
 import rodadaJson from "@/content/demo/rodada.json";
 import type { Rodada } from "@/lib/demo/types";
@@ -24,7 +25,7 @@ const SECOES = [
   { id: "cliente", titulo: "O cliente e a dor" },
   { id: "arquitetura", titulo: "Antes e depois" },
   { id: "ataques", titulo: "Ataques lado a lado" },
-  { id: "politicas", titulo: "Políticas" },
+  { id: "politicas", titulo: "O que cada política protege" },
   { id: "numeros", titulo: "Números" },
   { id: "pos-venda", titulo: "Pós-venda" },
   { id: "desafio", titulo: "Tente você mesmo" },
@@ -79,6 +80,9 @@ export default async function DemoPage() {
         </p>
       </header>
 
+      <ResumoExecutivo rodada={rodada} />
+
+      <div className="h-8" />
       <Apresentador secoes={SECOES} />
 
       <Secao id="cliente" numero={1} titulo="O cliente e a dor" sub="Quem é o cliente fictício, o que o agente faz e por que isso preocupa quem responde por segurança e por LGPD.">
@@ -90,7 +94,9 @@ export default async function DemoPage() {
       <Secao id="ataques" numero={3} titulo="Ataques lado a lado" sub="Escolha um cenário. O replay mostra uma execução real gravada; o botão ao vivo dispara o agente agora, nos dois modos ao mesmo tempo. Cada bloqueio diz qual camada agiu.">
         <Arena rodada={rodada} token={token} />
       </Secao>
-      <Secao id="politicas" numero={4} titulo="Políticas" sub="O que foi ligado na NeuralTrust para chegar a esse resultado, sem mudar uma linha do agente.">
+      <Secao id="politicas" numero={4} titulo="O que cada política protege" sub="Ligue e desligue os detectores da NeuralTrust e veja, ataque por ataque, o que passa a ser barrado e o que acontece sem eles. Nada disso exige mudar o agente.">
+        <SimuladorPoliticas rodada={rodada} />
+        <h3 className="mt-12 mb-4 text-lg font-semibold">Como está configurado</h3>
         <Politicas rodada={rodada} />
       </Secao>
       <Secao id="numeros" numero={5} titulo="Números" sub="Todos os cenários, cinco vezes em cada modo, com pedidos legítimos para medir falsos positivos.">
