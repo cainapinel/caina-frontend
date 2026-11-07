@@ -92,8 +92,8 @@ export function SimuladorPoliticas({ rodada }: { rodada: Rodada }) {
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[22rem_1fr]">
-      <aside className="space-y-4">
+    <div className="grid gap-5 lg:grid-cols-[19rem_1fr]">
+      <aside className="space-y-3">
         <div className="rounded-2xl border border-edge bg-surface p-4">
           <p className="text-xs text-muted">Política na TrustGuard</p>
           <p className="font-semibold">Agente e-mail — demo</p>
@@ -106,9 +106,9 @@ export function SimuladorPoliticas({ rodada }: { rodada: Rodada }) {
           </div>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           {rodada.detectores.map((d) => (
-            <div key={d.nome} className={`rounded-xl border p-3 transition-colors ${ligados.has(d.nome) ? "border-emerald-500/40 bg-surface" : "border-edge bg-surface/50"}`}>
+            <div key={d.nome} className={`rounded-xl border px-3 py-2 transition-colors ${ligados.has(d.nome) ? "border-emerald-500/40 bg-surface" : "border-edge bg-surface/50"}`}>
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-sm font-semibold">{d.tipo}</p>
@@ -116,7 +116,7 @@ export function SimuladorPoliticas({ rodada }: { rodada: Rodada }) {
                 </div>
                 <Interruptor ligado={ligados.has(d.nome)} onClick={() => alternar(d.nome)} rotulo={`Ligar ou desligar ${d.nome}`} />
               </div>
-              <p className="mt-1 text-xs text-ink/70">Lê {d.le}.</p>
+              <p className="mt-0.5 text-[11px] leading-snug text-ink/60">Lê {d.le}.</p>
             </div>
           ))}
         </div>
@@ -134,11 +134,11 @@ export function SimuladorPoliticas({ rodada }: { rodada: Rodada }) {
         </div>
       </aside>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
           {(["gateway", "modelo", "aplicacao", "exposto"] as Risco[]).map((r) => (
-            <div key={r} className={`rounded-xl border p-3 ${RISCO[r].classe}`}>
-              <p className="text-2xl font-bold">{conta(r)}<span className="text-sm font-normal opacity-70">/{linhas.length}</span></p>
+            <div key={r} className={`rounded-xl border px-3 py-2 ${RISCO[r].classe}`}>
+              <p className="text-xl font-bold">{conta(r)}<span className="text-sm font-normal opacity-70">/{linhas.length}</span></p>
               <p className="text-xs">{RISCO[r].rotulo}</p>
             </div>
           ))}
@@ -148,20 +148,20 @@ export function SimuladorPoliticas({ rodada }: { rodada: Rodada }) {
           {visiveis === 0 ? " (sem gateway, ninguém fica sabendo do que foi tentado)" : ""}.
         </p>
 
-        <ul className="space-y-2">
+        <ul className="grid gap-2 xl:grid-cols-2">
           {linhas.map(({ a, risco, texto, nota }) => (
-            <li key={a.id} className="rounded-xl border border-edge bg-surface p-3 transition-colors">
+            <li key={a.id} className="rounded-xl border border-edge bg-surface px-3 py-2 transition-colors">
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div className="min-w-0">
                   <p className="text-sm font-semibold">
                     <span className="font-mono text-accent">{a.id}</span> {a.nome}
                     <span className="ml-2 font-mono text-[10px] text-muted">{a.owasp.map(owaspCurto).join(" ")}</span>
                   </p>
-                  <p className="mt-0.5 text-xs text-muted">{a.impacto}</p>
+                  <p className="mt-0.5 text-[11px] leading-snug text-muted">{a.impacto}</p>
                 </div>
                 <span className={`shrink-0 rounded-md border px-2 py-1 text-xs font-semibold ${RISCO[risco].classe}`}>{RISCO[risco].rotulo}</span>
               </div>
-              <p className="mt-2 text-xs text-ink/80">
+              <p className="mt-1 text-xs text-ink/80">
                 {texto} <span className="text-muted">· {RISCO[risco].nota}</span>
               </p>
               {nota && <p className="mt-1 text-xs text-accent/90">{nota}</p>}
@@ -170,7 +170,7 @@ export function SimuladorPoliticas({ rodada }: { rodada: Rodada }) {
         </ul>
         <p className="text-xs text-muted">
           O simulador não reconfigura o gateway: ele aplica a evidência das {rodada.meta.repeticoes} execuções gravadas de cada ataque.
-          Para ver um ataque acontecendo de verdade, use a seção &quot;Ataques lado a lado&quot;.
+          Para ver um ataque acontecendo de verdade, use o slide de demonstração.
         </p>
       </div>
     </div>

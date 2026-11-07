@@ -19,7 +19,7 @@ function Carta({ c, ativo, onClick }: { c: Cenario; ativo: boolean; onClick: () 
   return (
     <button
       onClick={onClick}
-      className={`group flex h-full flex-col rounded-xl border p-3 text-left transition-colors ${
+      className={`group flex h-full flex-col rounded-xl border px-3 py-2 text-left transition-colors ${
         ativo ? "border-accent bg-accent-soft" : "border-edge bg-surface hover:border-accent/50"
       }`}
     >
@@ -69,7 +69,7 @@ export function Arena({ rodada, token }: { rodada: Rodada; token: string }) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <div className="flex gap-2">
         {(["ataques", "controles"] as const).map((g) => (
           <button
@@ -91,9 +91,9 @@ export function Arena({ rodada, token }: { rodada: Rodada; token: string }) {
         ))}
       </div>
 
-      <div className="grid gap-4 rounded-2xl border border-edge bg-surface p-5 md:grid-cols-[1fr_auto]">
-        <div className="space-y-2 text-sm">
-          <h3 className="text-lg font-semibold">
+      <div className="grid gap-3 rounded-2xl border border-edge bg-surface p-4 md:grid-cols-[1fr_auto]">
+        <div className="space-y-1 text-sm">
+          <h3 className="text-base font-semibold">
             <span className="font-mono text-accent">{cenario.id}</span> {cenario.nome}
           </h3>
           {cenario.tipo === "ataque" ? (

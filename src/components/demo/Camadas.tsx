@@ -38,7 +38,7 @@ export function Camadas({ modo, desfecho }: { modo: Modo; desfecho: Desfecho | n
   const legitimo = desfecho === "ok";
 
   return (
-    <ol className="flex items-center gap-1 text-[11px] font-mono" aria-label="Camadas atravessadas">
+    <ol className="flex flex-wrap items-center gap-1 text-[11px] font-mono" aria-label="Camadas atravessadas">
       {ETAPAS.map((e, i) => {
         const ausente = e.id === "gateway" && modo === "sem_defesa";
         const passou = idx >= 0 && i < idx;

@@ -89,9 +89,11 @@ function Linha({ e }: { e: Evento }) {
 }
 
 export function PainelExecucao({ modo, eventos, resultado, estado, fonte, erro, estatistica }: Props) {
-  const fim = useRef<HTMLDivElement>(null);
+  // Rola só o próprio painel: scrollIntoView também moveria o trilho horizontal do deck.
+  const lista = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    fim.current?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    const el = lista.current;
+    if (el) el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
   }, [eventos.length]);
 
   const desfecho = resultado?.classificacao?.desfecho ?? null;
@@ -99,7 +101,7 @@ export function PainelExecucao({ modo, eventos, resultado, estado, fonte, erro, 
   const protegido = modo === "com_gateway";
 
   return (
-    <section className={`flex min-h-[28rem] flex-col rounded-2xl border bg-surface ${protegido ? "border-emerald-500/30" : "border-edge"}`}>
+    <section className={`flex min-h-[20rem] flex-col rounded-2xl border bg-surface ${protegido ? "border-emerald-500/30" : "border-edge"}`}>
       <header className="flex flex-wrap items-center justify-between gap-2 border-b border-edge px-4 py-3">
         <h3 className="font-semibold">
           {protegido ? "🛡 " : ""}
@@ -113,7 +115,7 @@ export function PainelExecucao({ modo, eventos, resultado, estado, fonte, erro, 
         <Camadas modo={modo} desfecho={estado === "pronto" ? desfecho : null} />
       </div>
 
-      <div className="flex max-h-[26rem] flex-1 flex-col gap-2 overflow-y-auto px-4 py-3">
+      <div ref={lista} className="flex max-h-[42vh] flex-1 flex-col gap-2 overflow-y-auto px-4 py-3">
         {estado === "parado" && eventos.length === 0 && (
           <p className="m-auto text-center text-sm text-muted">Escolha um cenário e dispare o replay ou a execução ao vivo.</p>
         )}
@@ -124,7 +126,6 @@ export function PainelExecucao({ modo, eventos, resultado, estado, fonte, erro, 
         ))}
         {estado === "rodando" && <p className="font-mono text-xs text-muted animate-pulse">processando…</p>}
         {erro && <p className="text-sm text-red-300">{erro}</p>}
-        <div ref={fim} />
       </div>
 
       {estado === "pronto" && resultado && (
