@@ -124,7 +124,7 @@ export const plataforma = {
 export const arquitetura = {
   titulo: "Como fica a arquitetura de vocês",
   semDefesa: [
-    "O agente carrega a chave do provedor de LLM e o token da ferramenta.",
+    "O agente carrega a chave do provedor de LLM e o token do servidor de e-mail.",
     "Cada pedido vai direto ao modelo: a única defesa é o modelo recusar.",
     "Nada registra o que foi tentado, nem por quem.",
   ],
@@ -132,14 +132,16 @@ export const arquitetura = {
     "O agente recebe só uma credencial de consumidor que expira em minutos.",
     "A chave do provedor fica no TrustGate: trocar ou revogar não exige mexer no agente.",
     "Cada pedido e cada resposta passam pela TrustGuard antes de seguir.",
+    "As ferramentas passam pelo MCP Gateway: o agente não conhece o endereço nem o token do servidor de e-mail.",
     "Cada bloqueio vira evidência auditável: detector, motivo e trace_id.",
   ],
   paridade:
     "O código do agente é o mesmo nos dois modos. Mudam só a URL base e a credencial: a ExemploPay protege o agente " +
     "que já tem, sem projeto de reescrita.",
-  pendencia:
-    "Nesta demonstração, o tráfego da ferramenta (MCP) ainda vai direto ao servidor de e-mail. Na POC, ele passa pelo " +
-    "MCP Gateway do TrustGate, que acrescenta controle de quais ferramentas cada agente pode chamar.",
+  ferramentas:
+    "Duas políticas, escolhidas pelo collector conforme a aplicação: uma para o tráfego do modelo e outra para o das ferramentas. " +
+    "Na das ferramentas, a TrustGuard lê o que a ferramenta devolve (uma mensagem envenenada é barrada antes de chegar ao agente) " +
+    "e o que o agente envia a ela (um e-mail levando CPFs é barrado no próprio argumento).",
 };
 
 export const objecoes = {
@@ -263,7 +265,7 @@ export const apendice = {
   titulo: "Apêndice: como medimos e o que validar na POC",
   metodo: [
     "8 ataques e 10 pedidos legítimos, cada um rodado 5 vezes em cada modo (180 execuções).",
-    "Mesmo agente e mesmo código nos dois modos; muda só a URL base e a credencial.",
+    "Mesmo agente e mesmo código nos dois modos; mudam só as URLs (modelo e ferramentas) e a credencial.",
     "O critério olha o que o agente tentou fazer, então cada camada é medida em separado: gateway, modelo e trava da aplicação.",
     "Cada bloqueio do gateway foi gravado com detector, motivo e trace_id.",
   ],
@@ -271,7 +273,7 @@ export const apendice = {
     "Base pequena: 5 repetições e 10 pedidos legítimos. A POC usa a suíte e o tráfego da ExemploPay.",
     "Um modelo só (Haiku 5.5). Com outro modelo, o comportamento sem proteção muda.",
     "Temas de moderação e entidades de DLP foram escritos conhecendo os ataques. Na POC, calibramos com casos reais.",
-    "Ferramentas (MCP) fora do gateway nesta demo. Na POC, passam pelo MCP Gateway.",
+    "Pelo MCP Gateway, cabeçalhos próprios não chegam ao servidor da ferramenta: a correlação por execução foi feita no agente.",
     "A injeção de cabeçalho (A7) é responsabilidade da aplicação, não do gateway: defesa em camadas.",
   ],
 };

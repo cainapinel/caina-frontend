@@ -51,8 +51,14 @@ export function Arquitetura() {
           <No titulo="Claude Haiku 5.5" sub="Anthropic" />
         </div>
         <div className="flex flex-col items-stretch gap-2 md:flex-row">
-          <No titulo="Agente de e-mail" sub="mesmo código nos dois modos" />
+          <No titulo="Agente de e-mail" sub="mesmo código nos dois modos" chave={protegido ? "a mesma ag_ curta" : undefined} />
           <Seta rotulo="MCP" />
+          {protegido && (
+            <>
+              <No titulo="MCP Gateway" sub="TrustGuard nos argumentos e nos resultados das ferramentas" destaque chave="token do servidor de e-mail" />
+              <Seta />
+            </>
+          )}
           <No titulo="Servidor MCP de e-mail" sub="travas: permitidos, cabeçalhos, limite" chave="senha SMTP (só aqui)" />
           <Seta />
           <No titulo="Caixa de saída simulada" sub="entrega real só no cenário legítimo" />
@@ -68,7 +74,7 @@ export function Arquitetura() {
         ))}
       </ul>
       <p className="text-sm text-muted">{arquitetura.paridade}</p>
-      <p className="rounded-lg border border-edge bg-surface2 px-3 py-2 text-xs text-muted">⚠ {arquitetura.pendencia}</p>
+      <p className="rounded-lg border border-emerald-500/30 bg-emerald-500/5 px-3 py-2 text-xs text-ink/80">{arquitetura.ferramentas}</p>
     </div>
   );
 }
