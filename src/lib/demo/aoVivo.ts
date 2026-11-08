@@ -94,6 +94,9 @@ export async function executarAoVivo(
         case "erro":
           emitir({ tipo, erro: d.erro });
           break;
+        case "aguardando_limite":
+          emitir({ tipo: "aviso", texto: `limite de rajada do plano da TrustGuard: aguardando ${Math.round(d.segundos)} s…` });
+          break;
         case "aguardando_credencial":
           // Uma chave recém-emitida leva ~2 s para valer no gateway.
           if (!resultado.eventos.some((e) => e.tipo === "aviso")) {

@@ -157,6 +157,7 @@ export interface Rodada {
   catalogo: { ataques: Cenario[]; controles: Cenario[]; desafio: Cenario };
   detectores: DetectorConfig[];
   travas_aplicacao: { nome: string; detalhe: string }[];
+  politicas_trustguard?: { nome: string; aplica_a: string; regras: string[] }[];
   replay: Record<string, Record<Modo, Resultado & { run_id: string }>>;
   /** Por ataque: detectores que o barraram na rodada (observado) ou que a documentação sustenta (inferido). */
   cobertura: Record<string, { detector: string; base: "observado" | "inferido"; vezes?: number; de?: number }[]>;

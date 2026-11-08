@@ -412,6 +412,19 @@ export function Configuracao({ rodada }: { rodada: Rodada }) {
           </dl>
         )}
       </div>
+      {rodada.politicas_trustguard && (
+        <div className="rounded-xl border border-edge bg-surface p-4 text-sm md:col-span-2">
+          <p className="font-semibold">Políticas na TrustGuard</p>
+          <ul className="mt-2 grid gap-2 md:grid-cols-2">
+            {rodada.politicas_trustguard.map((p) => (
+              <li key={p.nome}>
+                <span className="text-emerald-300">{p.nome}</span> <span className="text-muted">· {p.aplica_a}</span>
+                <span className="block font-mono text-xs text-ink/70">{p.regras.join(" · ")}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       <div className="rounded-xl border border-edge bg-surface p-4 text-sm">
         <p className="font-semibold">Travas da aplicação (valem nos dois modos)</p>
         <ul className="mt-2 space-y-1">
