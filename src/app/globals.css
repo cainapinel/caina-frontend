@@ -49,3 +49,26 @@ body {
     transform: none;
   }
 }
+
+/* Impressão (roteiro de estudo dos cursos): troca o tema escuro por papel branco.
+   As cores do Tailwind leem estas variáveis, então basta redefini-las. */
+@media print {
+  :root {
+    --color-night: #ffffff;
+    --color-surface: #ffffff;
+    --color-surface2: #f3f4f6;
+    --color-edge: #d1d5db;
+    --color-ink: #111827;
+    --color-muted: #4b5563;
+    --color-accent: #b45309;
+    --color-accent-soft: #fef3c7;
+    --color-ok: #047857;
+    --color-sev-high: #b91c1c;
+  }
+  html {
+    font-size: 11pt;
+  }
+  a {
+    text-decoration: none;
+  }
+}

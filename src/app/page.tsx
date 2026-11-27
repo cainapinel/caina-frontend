@@ -1,3 +1,4 @@
+import { CursosCta } from "@/components/landing/CursosCta";
 import { Footer } from "@/components/landing/Footer";
 import { Hero } from "@/components/landing/Hero";
 import { Projects } from "@/components/landing/Projects";
@@ -10,6 +11,7 @@ export default function Home() {
     <main>
       <Hero />
       <VestigioCta />
+      <CursosCta />
       <Projects />
       <Timeline />
       <SkillsGrid />
