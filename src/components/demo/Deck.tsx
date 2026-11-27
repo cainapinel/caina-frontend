@@ -18,9 +18,20 @@ function emCampoDeTexto(alvo: EventTarget | null): boolean {
  * Deck horizontal: um slide por tela, navegação por teclado, toque e URL (#n).
  * Teclas: ← → (ou PageUp/PageDown/espaço) navegam · N notas · O visão geral · F tela cheia.
  */
-export function Deck({ slides, aviso }: { slides: Slide[]; aviso: string }) {
+export function Deck({
+  slides,
+  aviso,
+  rotuloNotas = "notas do apresentador",
+  notasIniciais = false,
+}: {
+  slides: Slide[];
+  aviso: string;
+  /** Nome do painel de notas: na /demo são do apresentador; nos cursos, a explicação para o aluno. */
+  rotuloNotas?: string;
+  notasIniciais?: boolean;
+}) {
   const [atual, setAtual] = useState(0);
-  const [notas, setNotas] = useState(false);
+  const [notas, setNotas] = useState(notasIniciais);
   const [visaoGeral, setVisaoGeral] = useState(false);
   const toque = useRef<{ x: number; y: number } | null>(null);
   const total = slides.length;
@@ -159,8 +170,8 @@ export function Deck({ slides, aviso }: { slides: Slide[]; aviso: string }) {
       </div>
 
       {notas && (
-        <aside className="max-h-[35vh] overflow-y-auto border-t border-accent/30 bg-surface px-5 py-3 text-sm md:px-10" aria-label="Notas do apresentador">
-          <p className="font-mono text-xs text-accent">notas do apresentador · {slide.titulo}</p>
+        <aside className="max-h-[35vh] overflow-y-auto border-t border-accent/30 bg-surface px-5 py-3 text-sm md:px-10" aria-label={rotuloNotas}>
+          <p className="font-mono text-xs text-accent">{rotuloNotas} · {slide.titulo}</p>
           <p className="mt-1 max-w-5xl leading-relaxed text-ink/90">{slide.notas ?? "Sem notas para este slide."}</p>
         </aside>
       )}
@@ -179,7 +190,7 @@ export function Deck({ slides, aviso }: { slides: Slide[]; aviso: string }) {
           <span className="hidden truncate text-ink/80 sm:block">{slide.titulo}</span>
           <span className="ml-auto hidden truncate text-[10px] text-muted lg:block">{aviso}</span>
           <div className="ml-auto flex shrink-0 gap-1.5 lg:ml-3">
-            <button onClick={() => setNotas((v) => !v)} className={`rounded-md border px-2 py-1 ${notas ? "border-accent text-accent" : "border-edge text-muted hover:text-ink"}`} title="Notas do apresentador (N)">
+            <button onClick={() => setNotas((v) => !v)} className={`rounded-md border px-2 py-1 ${notas ? "border-accent text-accent" : "border-edge text-muted hover:text-ink"}`} title={`${rotuloNotas} (N)`}>
               notas
             </button>
             <button onClick={() => setVisaoGeral((v) => !v)} className="rounded-md border border-edge px-2 py-1 text-muted hover:text-ink" title="Visão geral (O)">
