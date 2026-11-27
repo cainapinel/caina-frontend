@@ -1,6 +1,12 @@
 import type { ApiErrorBody, Report } from "./types";
 
-const API = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000";
+// Limpa a URL da API: variáveis coladas no painel da Vercel ou criadas por linha de
+// comando podem trazer BOM, espaços ou quebra de linha, e o valor vai embutido no build.
+// A barra final é removida para não gerar "//api/v1/..." (o Django responde 404).
+const API = (process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000")
+  .replace(/^\uFEFF/, "")
+  .trim()
+  .replace(/\/+$/, "");
 
 export class ApiError extends Error {
   code: string;
