@@ -57,7 +57,7 @@ export default async function PedidosPage({ params }: Props) {
           <Downloads itens={downloads.filter((d) => d.origem.endsWith("/pedidos"))} compacto />
         </div>
         <nav aria-label="Categorias" className="mt-8 flex flex-wrap gap-2 print:hidden">
-          {[...consulta.categorias.map((c) => ({ id: c.id, titulo: c.titulo })), { id: "ajustes", titulo: "Ajustes rápidos" }, { id: "antes-de-enviar", titulo: "Antes de enviar" }, { id: "plano-30-dias", titulo: "Plano de 30 dias" }, { id: "kit-ia", titulo: "Modelo do Kit IA" }].map((c) => (
+          {[...consulta.categorias.map((c) => ({ id: c.id, titulo: c.titulo })), { id: "ajustes", titulo: "Ajustes rápidos" }, { id: "antes-de-enviar", titulo: "Antes de enviar" }, { id: "plano-30-dias", titulo: "Plano de 30 dias" }, { id: "kit-ia", titulo: consulta.modeloTitulo ?? "Modelo do Kit IA" }].map((c) => (
             <a key={c.id} href={`#${c.id}`} className="rounded-full border border-edge px-3 py-1 text-sm text-muted hover:border-accent/60 hover:text-accent">
               {c.titulo}
             </a>
@@ -142,7 +142,12 @@ export default async function PedidosPage({ params }: Props) {
           </ol>
         </Secao>
 
-        <Secao id="kit-ia" quebra titulo="Modelo do Kit IA" sub="O projeto final do curso. Imprima e preencha, ou copie a estrutura para um documento.">
+        <Secao
+          id="kit-ia"
+          quebra
+          titulo={consulta.modeloTitulo ?? "Modelo do Kit IA"}
+          sub={consulta.modeloSub ?? "O projeto final do curso. Imprima e preencha, ou copie a estrutura para um documento."}
+        >
           <div className="space-y-6">
             {consulta.modeloKit.map((k) =>
               k.campos.length >= 5 ? (
@@ -189,7 +194,7 @@ export default async function PedidosPage({ params }: Props) {
         </Secao>
 
         <p className="rounded-xl border-l-4 border-accent bg-accent-soft px-4 py-3 text-sm print:hidden">
-          <Rico texto="Mais explicações e exercícios no roteiro de estudo: **caina.pinel.com.br/cursos/ia-no-dia-a-dia**" />
+          <Rico texto={`Mais explicações e exercícios no roteiro de estudo: **caina.pinel.com.br/cursos/${curso.slug}**`} />
         </p>
       </div>
 

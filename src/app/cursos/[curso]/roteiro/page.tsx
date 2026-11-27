@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function RoteiroPage({ params }: Props) {
   const encontrado = buscarCurso((await params).curso);
   if (!encontrado) notFound();
-  const { curso, slides, downloads } = encontrado;
+  const { curso, slides, downloads, projeto, arquivosPratica } = encontrado;
   const base = `/cursos/${curso.slug}`;
 
   const sumario = [
@@ -59,11 +59,19 @@ export default async function RoteiroPage({ params }: Props) {
           >
             Pedidos prontos
           </Link>
+          {projeto && (
+            <Link
+              href={`${base}/projeto`}
+              className="rounded-lg border border-accent/50 bg-surface px-4 py-2 text-sm text-accent transition-colors hover:border-accent"
+            >
+              Projeto final
+            </Link>
+          )}
           <BotaoImprimir />
           <span className="text-xs text-muted">Atualizado em {curso.atualizadoEm}</span>
         </div>
         <div className="mt-3">
-          <Downloads itens={downloads} compacto />
+          <Downloads itens={[...downloads, ...(arquivosPratica ?? [])]} compacto />
         </div>
       </header>
 

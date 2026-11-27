@@ -21,8 +21,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
-    ...cursos.flatMap(({ curso }) =>
-      ["", "/roteiro", "/slides", "/pedidos"].map((sufixo) => ({
+    ...cursos.flatMap(({ curso, projeto }) =>
+      ["", "/roteiro", "/slides", "/pedidos", ...(projeto ? ["/projeto"] : [])].map((sufixo) => ({
         url: `https://caina.pinel.com.br/cursos/${curso.slug}${sufixo}`,
         lastModified: new Date(),
         changeFrequency: "monthly" as const,

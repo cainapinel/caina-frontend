@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function CursoPage({ params }: Props) {
   const encontrado = buscarCurso((await params).curso);
   if (!encontrado) notFound();
-  const { curso, slides, downloads } = encontrado;
+  const { curso, slides, downloads, projeto, arquivosPratica } = encontrado;
   const base = `/cursos/${curso.slug}`;
   const assunto = encodeURIComponent(`Curso ${curso.titulo}`);
 
@@ -31,7 +31,7 @@ export default async function CursoPage({ params }: Props) {
         <Link href="/cursos" className="font-mono text-sm text-muted hover:text-accent">
           ← cursos
         </Link>
-        <p className="mt-6 font-mono text-sm text-accent">curso · iniciante</p>
+        <p className="mt-6 font-mono text-sm text-accent">curso · {curso.nivel.toLowerCase()}</p>
         <h1 className="mt-2 text-4xl font-bold tracking-tight md:text-5xl">
           {curso.titulo}
           <span className="text-accent">.</span>
@@ -54,6 +54,14 @@ export default async function CursoPage({ params }: Props) {
           >
             Pedidos prontos
           </Link>
+          {projeto && (
+            <Link
+              href={`${base}/projeto`}
+              className="rounded-lg border border-accent/50 bg-surface px-6 py-3 text-accent transition-colors hover:border-accent"
+            >
+              Projeto final
+            </Link>
+          )}
         </div>
         <dl className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4">
           {curso.formato.map((f) => (
@@ -121,12 +129,35 @@ export default async function CursoPage({ params }: Props) {
         </ol>
       </section>
 
+      {projeto && (
+        <section className="mx-auto max-w-5xl px-6 pb-12">
+          <Link
+            href={`${base}/projeto`}
+            className="block rounded-2xl border border-accent/40 bg-gradient-to-br from-surface to-surface2 p-8 transition-colors hover:border-accent"
+          >
+            <p className="font-mono text-sm text-accent">projeto final</p>
+            <h2 className="mt-2 text-2xl font-bold tracking-tight">{projeto.titulo}</h2>
+            <p className="mt-3 max-w-3xl leading-relaxed text-ink/85">{projeto.resumo}</p>
+            <span className="mt-5 inline-block font-mono text-sm text-muted">ver o enunciado, as etapas e os critérios de avaliação →</span>
+          </Link>
+        </section>
+      )}
+
       <section className="mx-auto max-w-5xl px-6 pb-12">
         <h2 className="text-2xl font-semibold tracking-tight">Materiais para baixar</h2>
         <p className="mt-2 text-sm text-muted">Em PDF, para estudar offline ou imprimir.</p>
         <div className="mt-6">
           <Downloads itens={downloads} />
         </div>
+        {arquivosPratica && (
+          <>
+            <h3 className="mt-10 text-lg font-semibold">Arquivos de prática</h3>
+            <p className="mt-1 text-sm text-muted">Planilhas com dados fictícios, usadas nos exercícios e no projeto final.</p>
+            <div className="mt-4">
+              <Downloads itens={arquivosPratica} />
+            </div>
+          </>
+        )}
       </section>
 
       <section className="mx-auto max-w-5xl px-6 pb-16">
