@@ -1,5 +1,9 @@
 import type { Download } from "@/content/cursos/tipos";
 
+function formato(arquivo: string) {
+  return arquivo.split(".").pop()!.toUpperCase();
+}
+
 export function Downloads({ itens, compacto = false }: { itens: Download[]; compacto?: boolean }) {
   if (compacto) {
     return (
@@ -11,14 +15,14 @@ export function Downloads({ itens, compacto = false }: { itens: Download[]; comp
             download
             className="rounded-lg border border-edge bg-surface px-3 py-2 text-sm transition-colors hover:border-accent/60 hover:text-accent"
           >
-            ↓ {d.rotulo} (PDF)
+            ↓ {d.rotulo} ({formato(d.arquivo)})
           </a>
         ))}
       </div>
     );
   }
   return (
-    <div className="grid gap-4 md:grid-cols-3 print:hidden">
+    <div className={`grid gap-4 print:hidden ${itens.length === 4 ? "md:grid-cols-2 lg:grid-cols-4" : "md:grid-cols-3"}`}>
       {itens.map((d) => (
         <a
           key={d.arquivo}
@@ -26,7 +30,7 @@ export function Downloads({ itens, compacto = false }: { itens: Download[]; comp
           download
           className="group flex flex-col rounded-xl border border-edge bg-surface p-5 transition-colors hover:border-accent/50"
         >
-          <span className="font-mono text-xs text-accent">PDF</span>
+          <span className="font-mono text-xs text-accent">{formato(d.arquivo)}</span>
           <span className="mt-1 font-semibold">{d.rotulo}</span>
           <span className="mt-1 flex-1 text-sm leading-relaxed text-muted">{d.descricao}</span>
           <span className="mt-4 font-mono text-sm text-muted group-hover:text-accent">↓ baixar</span>

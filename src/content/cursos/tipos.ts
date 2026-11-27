@@ -15,7 +15,8 @@ export type Bloco =
   | { tipo: "dica"; titulo?: string; texto: string }
   | { tipo: "cuidado"; titulo?: string; texto: string }
   | { tipo: "tabela"; colunas: string[]; linhas: string[][] }
-  | { tipo: "montador" };
+  | { tipo: "montador" }
+  | { tipo: "chamada"; titulo: string; texto: string; href: string; rotulo: string };
 
 export interface Exercicio {
   titulo: string;
@@ -39,6 +40,7 @@ export interface Modulo {
 export interface Curso {
   slug: string;
   titulo: string;
+  nivel: string;
   subtitulo: string;
   resumo: string;
   publico: string[];
@@ -68,6 +70,9 @@ export type SlideCurso = { id: string; modulo?: number; notas: string } & (
 
 export interface MaterialConsulta {
   apresentacao: string;
+  /** Título e apoio da seção do modelo para preencher (padrão: Kit IA do introdutório). */
+  modeloTitulo?: string;
+  modeloSub?: string;
   categorias: { id: string; titulo: string; pedidos: { titulo: string; texto: string }[] }[];
   ajustes: string[];
   antesDeEnviar: string[];
@@ -81,4 +86,20 @@ export interface Download {
   arquivo: string;
   /** Página do site da qual o PDF é gerado (scripts/pdf-materiais.sh). */
   origem: string;
+}
+
+export interface ProjetoFinal {
+  titulo: string;
+  resumo: string;
+  cenario: string[];
+  /** E-mail fictício da diretora que abre o projeto. */
+  pedido: { de: string; assunto: string; corpo: string };
+  arquivos: Download[];
+  identidadeVisual: { cores: { nome: string; hex: string; uso: string }[]; fontes: string[]; observacao: string };
+  etapas: { titulo: string; descricao: string; tarefas: string[]; entrega: string }[];
+  entregaveis: string[];
+  regras: string[];
+  /** Critérios de avaliação: peso em pontos e o que é insuficiente, bom e excelente. */
+  rubrica: { criterio: string; peso: number; niveis: [string, string, string] }[];
+  checklistEntrega: string[];
 }

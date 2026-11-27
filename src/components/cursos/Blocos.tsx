@@ -1,4 +1,5 @@
 import type { Bloco } from "@/content/cursos/tipos";
+import Link from "next/link";
 import { Copiar } from "./Copiar";
 import { Montador } from "./Montador";
 import { Rico } from "./Rico";
@@ -140,6 +141,19 @@ export function Blocos({ blocos }: { blocos: Bloco[] }) {
             return <Tabela key={i} colunas={b.colunas} linhas={b.linhas} />;
           case "montador":
             return <Montador key={i} />;
+          case "chamada":
+            return (
+              <aside key={i} className="break-inside-avoid rounded-xl border border-accent/40 bg-surface p-5">
+                <p className="font-semibold">{b.titulo}</p>
+                <p className="mt-1 text-sm leading-relaxed text-ink/85">
+                  <Rico texto={b.texto} />
+                </p>
+                <Link href={b.href} className="mt-3 inline-block font-mono text-sm text-accent hover:underline print:hidden">
+                  {b.rotulo} →
+                </Link>
+                <p className="mt-2 hidden font-mono text-xs text-muted print:block">caina.pinel.com.br{b.href}</p>
+              </aside>
+            );
         }
       })}
     </div>

@@ -32,7 +32,7 @@ export default function CursosPage() {
             className="group flex flex-col rounded-2xl border border-edge bg-surface p-6 transition-colors hover:border-accent/50"
           >
             <p className="font-mono text-xs text-accent">
-              {curso.modulos.length} módulos · iniciante
+              {curso.modulos.length} módulos · {curso.nivel.toLowerCase()}
             </p>
             <h2 className="mt-2 text-2xl font-bold tracking-tight">{curso.titulo}</h2>
             <p className="mt-1 text-sm text-muted">{curso.subtitulo}</p>

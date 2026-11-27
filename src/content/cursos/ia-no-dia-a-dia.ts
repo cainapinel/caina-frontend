@@ -14,6 +14,7 @@ import type { Curso } from "./tipos";
 export const iaNoDiaADia: Curso = {
   slug: "ia-no-dia-a-dia",
   titulo: "IA no Dia a Dia",
+  nivel: "Iniciante",
   subtitulo: "Introdução prática à inteligência artificial para quem não é de tecnologia",
   resumo:
     "Aprenda a usar ChatGPT, Gemini, Claude e Copilot para escrever e-mails, preparar reuniões, " +
